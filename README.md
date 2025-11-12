@@ -47,7 +47,7 @@ The GAM Expert skill helps you:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/[your-username]/gam-expert-claude-skill.git
+git clone https://github.com/c0webster/gam-expert-claude-skill.git
 cd gam-expert-claude-skill
 ```
 
@@ -59,17 +59,21 @@ cp -r gam-expert ~/.claude/skills/
 
 ### Verify Installation
 
-Start Claude Code and invoke the skill:
+Start Claude Code and simply ask about GAM or Google Workspace:
 ```bash
 claude
 ```
 
-Then type:
+Then ask naturally:
 ```
-/gam-expert
+"Help me list all users in the Marketing OU using GAM"
 ```
 
-You should see the skill activate and be ready to help with GAM commands.
+Claude will automatically invoke the GAM Expert skill when you ask about Google Workspace administration tasks.
+
+## How It Works
+
+This is a **Claude Code skill** - Claude automatically detects when you need GAM assistance and invokes the skill for you. You don't need to use any special commands; just describe what you want to do naturally.
 
 ## Quick Start
 
