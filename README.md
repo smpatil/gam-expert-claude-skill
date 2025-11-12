@@ -99,11 +99,32 @@ Claude will automatically invoke the GAM Expert skill when you ask about Google 
 
 ### Claude.ai
 
-This skill is designed for Claude Code but can be adapted for use with custom skills in Claude.ai. Follow the instructions in [Using skills in Claude](https://docs.claude.com/en/docs/build-with-claude/skills).
+You can use this skill in Claude.ai by uploading it as a ZIP file:
+
+1. Create a ZIP file of the `gam-expert` folder:
+   ```bash
+   cd gam-expert-claude-skill
+   zip -r gam-expert.zip gam-expert/
+   ```
+
+2. In Claude.ai, go to **Settings > Capabilities**
+
+3. Ensure **Code execution and file creation** is enabled
+
+4. Scroll to the **Skills** section and click **Upload skill**
+
+5. Upload the `gam-expert.zip` file
+
+**Requirements:**
+- Available on Pro, Max, Team, and Enterprise plans
+- Code execution must be enabled
+- Custom skills are private to your individual account
+
+For detailed instructions, see [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude).
 
 ### Claude API
 
-You can upload custom skills via the Claude API. See the [Skills API Quickstart](https://docs.anthropic.com/en/docs/build-with-claude/skills) for more.
+You can use custom skills via the Claude API. See the [Agent Skills API Quickstart](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/quickstart) for implementation details.
 
 ## How It Works
 
@@ -165,6 +186,11 @@ The skill includes multiple safety mechanisms:
 - **safety_checklist.md** - Pre-execution safety checks
 - **api_scopes.md** - OAuth scope requirements
 - **troubleshooting.md** - Common issues and solutions
+
+### Complete GAM Wiki (165 pages, bundled)
+- **wiki/** - Full GAM documentation for offline access (4MB)
+- Loaded progressively only when needed
+- Covers all GAM functionality comprehensively
 
 ## Common Workflows
 

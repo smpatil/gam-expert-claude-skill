@@ -11,7 +11,8 @@ __pycache__/
 *.pyc
 *.pyo
 
-# GAM.wiki (large documentation - users can clone separately)
+# GAM.wiki (now bundled in gam-expert/wiki/)
+# Old location if present
 GAM.wiki/
 
 # User-specific scripts

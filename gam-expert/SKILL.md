@@ -27,35 +27,31 @@ description: |
 ### 2. Read relevant GAM documentation
 Use the progressive documentation approach:
 
-**First: Check `references/` folder** (always available):
+**First: Check `references/` folder** (quick reference for common operations):
 - `quick_reference.md` - Top 50 most common commands
 - `command_syntax.md` - Detailed command patterns
 - `common_patterns.md` - Frequently used templates
 - `safety_checklist.md` - Safety guidelines
 - `troubleshooting.md` - Common errors and solutions
 
-**Second: Fetch GAM wiki pages online** (when needed for advanced/specific commands):
-Use WebFetch to get the latest documentation from GitHub:
+**Second: Read from bundled `wiki/` folder** (complete GAM documentation, 165 pages):
+The complete GAM wiki is bundled with this skill for offline access. Read specific pages as needed:
 ```
-https://raw.githubusercontent.com/GAM-team/GAM/wiki/[PageName].md
+wiki/[PageName].md
 ```
 
 Key GAM wiki pages:
-- `Collections-of-Users.md` - User selection patterns
-- `Groups.md` - Group management
-- `Groups-Membership.md` - Group membership operations
-- `Drive-Items.md` - Drive file operations
-- `Calendars.md` - Calendar management
-- `Organizational-Units.md` - OU management
-- `Bulk-Processing.md` - Batch operations
-- `CSV-Input-Filtering.md` - Working with CSV input
-- `CSV-Output-Filtering.md` - Formatting CSV output
+- `wiki/Collections-of-Users.md` - User selection patterns
+- `wiki/Groups.md` - Group management
+- `wiki/Groups-Membership.md` - Group membership operations
+- `wiki/Drive-Items.md` - Drive file operations
+- `wiki/Calendars.md` - Calendar management
+- `wiki/Organizational-Units.md` - OU management
+- `wiki/Bulk-Processing.md` - Batch operations
+- `wiki/CSV-Input-Filtering.md` - Working with CSV input
+- `wiki/CSV-Output-Filtering.md` - Formatting CSV output
 
-**Third: Local GAM.wiki folder** (optional, if user has cloned it):
-- Check if `GAM.wiki/` folder exists in parent directories
-- If available, read directly for offline comprehensive access
-
-**Strategy**: Start with references/ for common operations. Fetch wiki pages online for specific/advanced needs. This keeps the skill lightweight while ensuring access to complete documentation.
+**Strategy**: Start with references/ for common operations. Read specific wiki pages for advanced/detailed documentation. All documentation is available offline with progressive disclosure - Claude only loads files when contextually relevant.
 
 ### 3. Construct GAM commands
 Based on the documentation:
@@ -112,15 +108,14 @@ For read-only operations (print, info, show commands), you may execute without c
 
 ### Required
 - User's goal or task description (e.g., "add users to group", "list all users in OU")
-- `references/` folder with curated GAM documentation (included in skill)
-- Internet access for fetching GAM wiki pages online (via WebFetch)
+- `references/` folder with curated GAM quick reference (included in skill)
+- `wiki/` folder with complete GAM documentation (165 pages, bundled in skill)
 
 ### Optional
 - CSV or Excel files for bulk operations
 - Specific email addresses, group names, or resource identifiers
 - Filter criteria (domains, queries, patterns)
 - Output format preferences
-- Local GAM.wiki clone for offline comprehensive documentation access
 
 ## Outputs
 
@@ -137,10 +132,10 @@ For read-only operations (print, info, show commands), you may execute without c
 ## Constraints
 
 - **GAM must be pre-installed**: Assumes `gam` command is available in PATH
-- **Network access required**: GAM operations require internet connectivity to Google APIs; fetching wiki pages also requires internet
+- **Network access required**: GAM operations require internet connectivity to Google APIs
 - **Authentication required**: Assumes GAM is already authenticated (oauth2.txt exists)
 - **Destructive operations**: Always confirm before modifying/deleting resources
-- **Documentation access**: references/ folder always available; GAM wiki pages fetched online as needed
+- **Documentation access**: Complete documentation (references/ + wiki/) bundled for offline access
 
 ## Error handling
 
@@ -237,8 +232,8 @@ For read-only operations (print, info, show commands), you may execute without c
 
 ### Documentation strategy
 
-**1. references/ folder (Primary - Always Available)**
-Curated quick-reference documentation included in the skill:
+**1. references/ folder (Quick Reference)**
+Curated quick-reference documentation for common operations:
 - `command_syntax.md` - Detailed command patterns
 - `common_patterns.md` - Frequently used commands
 - `quick_reference.md` - Top 50 commands
@@ -248,13 +243,13 @@ Curated quick-reference documentation included in the skill:
 
 Read these first - they cover 80% of common GAM operations.
 
-**2. GAM.wiki online (Secondary - Fetch As Needed)**
-Fetch specific pages from GitHub when needed for advanced operations:
+**2. wiki/ folder (Complete Documentation - Bundled)**
+The complete GAM wiki (165 pages, 4MB) is bundled with this skill for fast, offline access:
 ```
-https://raw.githubusercontent.com/GAM-team/GAM/wiki/[PageName].md
+wiki/[PageName].md
 ```
 
-Available pages (100+ total):
+Available pages cover all GAM functionality:
 - **User management**: Collections-of-Users.md, user commands
 - **Groups**: Groups.md, Groups-Membership.md, Cloud-Identity-Groups.md
 - **Drive**: Drive-Items.md, Drive-File-Selection.md, Shared-Drives.md
@@ -265,14 +260,7 @@ Available pages (100+ total):
 - **Data formats**: CSV-Input-Filtering.md, CSV-Output-Filtering.md
 - **Advanced**: Bulk-Processing.md, Command-Data-From-Google-Docs-Sheets-Storage.md
 
-Use WebFetch to get the latest documentation directly from the GAM repository.
-
-**3. Local GAM.wiki clone (Optional - For Offline Access)**
-Users can optionally clone the wiki for comprehensive offline access:
-```bash
-git clone https://github.com/GAM-team/GAM.wiki.git
-```
-If present in parent directories, can be read directly.
+Claude uses progressive disclosure - files are only loaded when contextually relevant, so comprehensive documentation doesn't impact performance.
 
 ### Safety guidelines
 1. **Confirm destructive operations**: Delete, suspend, modify permissions
@@ -298,9 +286,9 @@ gam csvfile users.csv:email gam user ~email update ou "/Marketing"
 ## Notes
 
 - This skill requires GAM7 (not legacy GAM) for full feature support
-- Always consult the latest documentation as GAM is actively maintained
+- Complete GAM wiki (165 pages) is bundled for offline access with progressive disclosure
 - Be especially careful with delete operations - they are often irreversible
 - Use `gam print` commands to preview data before modifying
 - CSV files can reference Google Sheets using gdoc: syntax
 - Regular expressions can be used for pattern matching in many commands
-- The skill can read any file in the GAM.wiki folder - reference specific docs as needed
+- The skill can read any file in the wiki/ folder - reference specific docs as needed

@@ -88,13 +88,20 @@ Main skill instructions with:
 - Example use cases
 
 ### references/
-Curated reference documentation:
-- Quick reference guide for common commands
+Curated quick-reference documentation (6 guides):
+- Quick reference guide for top 50 common commands
 - Command syntax patterns
 - Common usage patterns
 - Safety checklist
 - Troubleshooting guide
 - API scopes reference
+
+### wiki/
+Complete GAM documentation bundled for offline access:
+- 165 markdown pages covering all GAM functionality
+- 4MB total size
+- Loaded progressively only when needed
+- Includes all official GAM wiki content
 
 ## Common Workflows
 
@@ -109,8 +116,15 @@ User describes goal → Skill breaks into steps → **Confirms plan** → Execut
 
 ## Documentation Structure
 
-The skill has access to comprehensive GAM documentation organized by topic:
+The skill includes comprehensive GAM documentation bundled for offline access:
 
+**Quick Reference (references/):**
+- Top 50 most common commands
+- Command syntax patterns
+- Safety guidelines
+
+**Complete Documentation (wiki/):**
+- 165 pages of official GAM wiki content
 - **Users**: Collections-of-Users.md, user commands
 - **Groups**: Groups.md, Groups-Membership.md
 - **Drive**: Drive-Items.md, Shared-Drives.md
@@ -118,7 +132,7 @@ The skill has access to comprehensive GAM documentation organized by topic:
 - **Organization**: Organizational-Units.md, Administrators.md
 - **Bulk operations**: Bulk-Processing.md, CSV processing
 
-The skill automatically reads the relevant documentation for each request.
+The skill uses progressive disclosure - automatically reading only the relevant documentation for each request without loading everything at once.
 
 ## Troubleshooting
 
