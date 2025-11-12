@@ -1,0 +1,22 @@
+{
+  "name": "gam-expert-claude-skill",
+  "owner": {
+    "name": "Chris Webster",
+    "email": "chris0webster@gmail.com"
+  },
+  "metadata": {
+    "description": "Claude Code skill for managing Google Workspace using GAM7",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "gam-expert",
+      "description": "Expert-level assistance with GAM (Google Apps Manager) commands for Google Workspace administration. Helps construct proper GAM commands, process CSV files for bulk operations, execute commands safely, troubleshoot errors, and analyze results.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./gam-expert"
+      ]
+    }
+  ]
+}
