@@ -41,22 +41,49 @@ The GAM Expert skill helps you:
   - Installation: https://github.com/GAM-team/GAM
 - GAM must be authenticated with your Google Workspace domain
 
-## Installation from GitHub
+## Installation
 
-### Clone the Repository
+### Claude Code (Recommended)
+
+You can register this repository as a Claude Code Plugin marketplace by running the following command in Claude Code:
+
+```
+/plugin marketplace add c0webster/gam-expert-claude-skill
+```
+
+Then, to install the GAM Expert skill:
+
+1. Select **Browse and install plugins**
+2. Select **gam-expert-claude-skill**
+3. Select **gam-expert**
+4. Select **Install now**
+
+Alternatively, directly install the plugin via:
+
+```
+/plugin install gam-expert@gam-expert-claude-skill
+```
+
+After installing the plugin, you can use the skill by just mentioning GAM or Google Workspace tasks. For example: "Help me list all users in the Marketing OU using GAM"
+
+### Manual Installation from GitHub
+
+If you prefer to install manually:
+
+#### Clone the Repository
 
 ```bash
 git clone https://github.com/c0webster/gam-expert-claude-skill.git
 cd gam-expert-claude-skill
 ```
 
-### Install the Skill
+#### Install the Skill
 
 ```bash
 cp -r gam-expert ~/.claude/skills/
 ```
 
-### Verify Installation
+#### Verify Installation
 
 Start Claude Code and simply ask about GAM or Google Workspace:
 ```bash
@@ -69,6 +96,14 @@ Then ask naturally:
 ```
 
 Claude will automatically invoke the GAM Expert skill when you ask about Google Workspace administration tasks.
+
+### Claude.ai
+
+This skill is designed for Claude Code but can be adapted for use with custom skills in Claude.ai. Follow the instructions in [Using skills in Claude](https://docs.claude.com/en/docs/build-with-claude/skills).
+
+### Claude API
+
+You can upload custom skills via the Claude API. See the [Skills API Quickstart](https://docs.anthropic.com/en/docs/build-with-claude/skills) for more.
 
 ## How It Works
 
