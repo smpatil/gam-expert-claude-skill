@@ -19,8 +19,8 @@ GAM7 is a free, open-source command-line tool for Google Workspace administrator
 
 The GAM Expert skill helps you:
 
-1. **Construct proper GAM commands** by reading the comprehensive GAM wiki documentation
-2. **Process spreadsheets** with Python when bulk operations require CSV/Excel files
+1. **Construct proper GAM commands** by reading comprehensive GAM documentation
+2. **Process CSV files** when bulk operations are needed
 3. **Execute commands safely** by always confirming before destructive operations
 4. **Troubleshoot errors** by consulting documentation and suggesting fixes
 5. **Analyze results** by parsing GAM output and generating reports
@@ -30,7 +30,6 @@ The GAM Expert skill helps you:
 - **GAM7 must be installed and configured** on your system
 - Verify with: `gam version`
 - GAM must be authenticated with your Google Workspace domain
-- Python 3 for spreadsheet processing (optional but recommended)
 
 ## Installation
 
@@ -88,19 +87,14 @@ Main skill instructions with:
 - Safety guidelines
 - Example use cases
 
-### scripts/spreadsheet_processor.py
-Python helper for:
-- Reading and validating CSV files
-- Transforming data for GAM
-- Analyzing GAM output
-- Merging multiple CSV files
-
-### GAM.wiki/
-Complete GAM documentation (provided by user):
-- 100+ documentation files
-- Detailed command syntax
-- Examples and use cases
-- Best practices
+### references/
+Curated reference documentation:
+- Quick reference guide for common commands
+- Command syntax patterns
+- Common usage patterns
+- Safety checklist
+- Troubleshooting guide
+- API scopes reference
 
 ## Common Workflows
 

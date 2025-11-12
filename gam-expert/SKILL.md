@@ -4,7 +4,7 @@ description: |
   Expert at executing GAM (Google Apps Manager) commands for Google Workspace administration.
   Use this skill when the user needs to manage Google Workspace users, groups, calendars, drive files,
   organizational units, or other Google Workspace resources. The skill reads GAM documentation,
-  constructs proper commands, processes spreadsheets with Python when needed, and always confirms
+  constructs proper commands, processes CSV files when needed, and always confirms
   before executing major operations. Assumes GAM7 is already installed and configured.
 ---
 
@@ -12,9 +12,9 @@ description: |
 
 ## Quick start
 - When asked to manage Google Workspace resources (users, groups, drive, calendars, etc.), load this skill.
-- Read relevant GAM wiki documentation from the `GAM.wiki/` folder to understand command syntax.
+- Read relevant GAM documentation to understand command syntax.
 - Construct proper GAM commands based on documentation and user requirements.
-- Use Python for spreadsheet processing when CSV/Excel files are involved.
+- Use the Read tool to analyze CSV files when bulk operations are involved.
 - Always confirm with the user before executing commands that modify, delete, or affect multiple resources.
 
 ## Instructions
@@ -64,20 +64,12 @@ Based on the documentation:
 - Apply proper filters and options
 - Consider CSV input/output when working with multiple items
 
-### 4. Process spreadsheets and validate commands
-When the user provides CSV or Excel files or constructs GAM commands:
-- Use Python helper scripts for common operations
-- Validate command syntax and analyze safety
-- Process CSV/Excel data for bulk operations
-- Generate preview commands and safety warnings
-
-**Available helper scripts**:
-- `scripts/gam_helper.py` - Command validation, safety analysis, entity extraction
-- `scripts/spreadsheet_processor.py` - CSV/Excel reading and processing
-- `scripts/batch_planner.py` - Planning and organizing bulk operations
-- `scripts/csv_generator.py` - Generating GAM-compatible CSV files
-- `scripts/error_analyzer.py` - Analyzing and troubleshooting GAM errors
-- `scripts/config_checker.py` - Verifying GAM installation and configuration
+### 4. Validate commands and process CSV files
+When the user provides CSV files or constructs GAM commands:
+- Analyze command syntax and safety implications
+- Use the Read tool to preview and validate CSV data
+- Generate preview commands when appropriate
+- Provide safety warnings for destructive operations
 
 **Reference documentation in `references/` folder**:
 - `command_syntax.md` - Detailed GAM command syntax patterns
@@ -89,10 +81,10 @@ When the user provides CSV or Excel files or constructs GAM commands:
 
 ### 5. Analyze command safety
 Before executing any command:
-- Use `scripts/gam_helper.py` to analyze the command for safety concerns
-- Check risk level (LOW, MEDIUM, HIGH, CRITICAL)
-- Review warnings about destructive operations, bulk changes, or large-scale impacts
-- Generate preview/dry-run commands when available
+- Analyze the command for safety concerns using reasoning
+- Assess risk level (LOW, MEDIUM, HIGH, CRITICAL)
+- Identify destructive operations, bulk changes, or large-scale impacts
+- Generate preview/dry-run commands when available (e.g., using `gam print`)
 
 ### 6. Confirm before executing
 **CRITICAL**: Before running any GAM command that:
@@ -148,7 +140,6 @@ For read-only operations (print, info, show commands), you may execute without c
 - **Network access required**: GAM operations require internet connectivity to Google APIs; fetching wiki pages also requires internet
 - **Authentication required**: Assumes GAM is already authenticated (oauth2.txt exists)
 - **Destructive operations**: Always confirm before modifying/deleting resources
-- **Python environment**: Standard libraries sufficient; pandas and openpyxl optional for advanced spreadsheet operations
 - **Documentation access**: references/ folder always available; GAM wiki pages fetched online as needed
 
 ## Error handling
@@ -203,12 +194,7 @@ For read-only operations (print, info, show commands), you may execute without c
 
 **Process**:
 1. Read `Groups-Membership.md` and `CSV-Input-Filtering.md`
-2. Use Python to validate users.csv format:
-   ```python
-   import pandas as pd
-   df = pd.read_csv('users.csv')
-   print(df.head())
-   ```
+2. Use Read tool to preview users.csv and validate it has an Email column
 3. Construct command: `gam update group marketing@example.com add members csvfile users.csv:Email`
 4. **Show command and ask for confirmation**: "This will add N users to marketing@example.com. Proceed?"
 5. Wait for approval
@@ -233,13 +219,7 @@ For read-only operations (print, info, show commands), you may execute without c
 1. Read `Drive-Items.md` and `Shared-Drives.md`
 2. Construct command: `gam user admin@example.com print drivefileacls <SharedDriveID> > permissions.csv`
 3. Execute (read-only)
-4. Use Python to analyze and format results:
-   ```python
-   import pandas as pd
-   df = pd.read_csv('permissions.csv')
-   summary = df.groupby(['emailAddress', 'role']).size()
-   print(summary)
-   ```
+4. Use Read tool to analyze the CSV and provide a summary of access patterns
 5. Present formatted results
 
 ### Example 5: Bulk user suspension with safety check
@@ -247,13 +227,7 @@ For read-only operations (print, info, show commands), you may execute without c
 
 **Process**:
 1. Read `Collections-of-Users.md` for csvfile syntax
-2. Use Python to preview the file:
-   ```python
-   import pandas as pd
-   df = pd.read_csv('terminated.csv')
-   print(f"Found {len(df)} users to suspend:")
-   print(df['email'].tolist()[:10])  # Show first 10
-   ```
+2. Use Read tool to preview terminated.csv and count the users
 3. **CRITICAL CONFIRMATION**: "⚠️  This will SUSPEND {count} user accounts. This is a major operation. Please review the list and type 'CONFIRM' to proceed."
 4. Wait for explicit "CONFIRM" response
 5. Execute: `gam csvfile terminated.csv:email update user ~email suspended on`
@@ -299,26 +273,6 @@ Users can optionally clone the wiki for comprehensive offline access:
 git clone https://github.com/GAM-team/GAM.wiki.git
 ```
 If present in parent directories, can be read directly.
-
-### Helper scripts usage
-All helper scripts in `scripts/` folder are executable Python files that can be:
-- Called directly for standalone operations
-- Imported as modules for reusable functions
-- Referenced in SKILL.md for Claude to use as needed
-
-Run any script with `--help` or no arguments to see usage information.
-
-Example usage:
-```bash
-# Analyze command safety before executing
-python3 scripts/gam_helper.py analyze "gam update group sales@example.com add member user@example.com"
-
-# Validate CSV file structure
-python3 scripts/spreadsheet_processor.py validate users.csv email,firstname,lastname
-
-# Check GAM configuration
-python3 scripts/config_checker.py
-```
 
 ### Safety guidelines
 1. **Confirm destructive operations**: Delete, suspend, modify permissions
