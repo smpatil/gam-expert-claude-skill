@@ -53,14 +53,6 @@ cd gam-expert-claude-skill
 
 ### Install the Skill
 
-Choose one of two methods:
-
-**Method 1: Use the pre-packaged ZIP (Recommended)**
-```bash
-unzip dist/gam-expert.zip -d ~/.claude/skills/
-```
-
-**Method 2: Install directly from repository**
 ```bash
 cp -r gam-expert ~/.claude/skills/
 ```
