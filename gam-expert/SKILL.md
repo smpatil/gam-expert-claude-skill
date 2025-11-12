@@ -10,285 +10,171 @@ description: |
 
 # GAM Expert
 
-## Quick start
-- When asked to manage Google Workspace resources (users, groups, drive, calendars, etc.), load this skill.
-- Read relevant GAM documentation to understand command syntax.
-- Construct proper GAM commands based on documentation and user requirements.
-- Use the Read tool to analyze CSV files when bulk operations are involved.
-- Always confirm with the user before executing commands that modify, delete, or affect multiple resources.
+## When to Use This Skill
 
-## Instructions
+Use this skill when the user needs to:
+- Manage Google Workspace users, groups, calendars, drive files, or organizational units
+- Execute bulk operations from CSV files
+- Generate reports or exports from Google Workspace
+- Troubleshoot GAM commands or understand GAM syntax
 
-### 1. Understand the user's request
-- Identify what Google Workspace resource(s) need to be managed (users, groups, drive files, etc.)
-- Determine the operation type: create, update, delete, read/print, bulk operation
-- Check if spreadsheets or CSV files are involved
+This skill assumes GAM7 is already installed and authenticated on the user's system.
 
-### 2. Read relevant GAM documentation
-Use the progressive documentation approach:
+## Workflow
 
-**First: Check `references/` folder** (quick reference for common operations):
-- `quick_reference.md` - Top 50 most common commands
-- `command_syntax.md` - Detailed command patterns
-- `common_patterns.md` - Frequently used templates
-- `safety_checklist.md` - Safety guidelines
-- `troubleshooting.md` - Common errors and solutions
+### 1. Understand the Request
+Identify:
+- What Google Workspace resource(s) need management (users, groups, drive, calendars, etc.)
+- Operation type: create, update, delete, read/print, bulk operation
+- Whether CSV files or spreadsheets are involved
+- Urgency and risk level of the operation
 
-**Second: Read from bundled `wiki/` folder** (complete GAM documentation, 165 pages):
-The complete GAM wiki is bundled with this skill for offline access. Read specific pages as needed:
-```
-wiki/[PageName].md
-```
+### 2. Read Relevant Documentation
 
-Key GAM wiki pages:
-- `wiki/Collections-of-Users.md` - User selection patterns
-- `wiki/Groups.md` - Group management
-- `wiki/Groups-Membership.md` - Group membership operations
-- `wiki/Drive-Items.md` - Drive file operations
-- `wiki/Calendars.md` - Calendar management
-- `wiki/Organizational-Units.md` - OU management
-- `wiki/Bulk-Processing.md` - Batch operations
-- `wiki/CSV-Input-Filtering.md` - Working with CSV input
-- `wiki/CSV-Output-Filtering.md` - Formatting CSV output
+Use progressive documentation loading:
 
-**Strategy**: Start with references/ for common operations. Read specific wiki pages for advanced/detailed documentation. All documentation is available offline with progressive disclosure - Claude only loads files when contextually relevant.
+**Start with `references/` folder** (quick access for common operations):
+- Check these curated reference files first as they cover 80% of typical GAM use cases
+- Files available: quick_reference.md, command_syntax.md, common_patterns.md, safety_checklist.md, troubleshooting.md, api_scopes.md, examples.md
 
-### 3. Construct GAM commands
-Based on the documentation:
-- Build the correct GAM command syntax
-- Handle complex entity selections (users, groups, OUs)
-- Apply proper filters and options
-- Consider CSV input/output when working with multiple items
+**Load from `wiki/` folder** (comprehensive documentation, 165 pages):
+- Read specific wiki pages only when needed for detailed/advanced operations
+- Complete GAM wiki is bundled for offline access
+- Use progressive disclosure - load only contextually relevant pages
+- Key pages: Collections-of-Users.md, Groups.md, Drive-Items.md, Calendars.md, Organizational-Units.md, Bulk-Processing.md, CSV-Input-Filtering.md
 
-### 4. Validate commands and process CSV files
-When the user provides CSV files or constructs GAM commands:
-- Analyze command syntax and safety implications
-- Use the Read tool to preview and validate CSV data
-- Generate preview commands when appropriate
-- Provide safety warnings for destructive operations
+**Documentation Strategy**: References first for speed, wiki for depth. Claude automatically determines which files to load based on context.
 
-**Reference documentation in `references/` folder**:
-- `command_syntax.md` - Detailed GAM command syntax patterns
-- `common_patterns.md` - Frequently used command patterns
-- `quick_reference.md` - Top 50 most common commands
-- `safety_checklist.md` - Safety guidelines and confirmation requirements
-- `troubleshooting.md` - Common errors and solutions
-- `api_scopes.md` - Required Google API scopes
+### 3. Construct GAM Commands
+Based on documentation:
+- Build correct GAM command syntax
+- Handle entity selections (users, groups, OUs)
+- Apply filters and options appropriately
+- Plan CSV input/output for bulk operations
 
-### 5. Analyze command safety
-Before executing any command:
-- Analyze the command for safety concerns using reasoning
-- Assess risk level (LOW, MEDIUM, HIGH, CRITICAL)
-- Identify destructive operations, bulk changes, or large-scale impacts
-- Generate preview/dry-run commands when available (e.g., using `gam print`)
+### 4. Validate and Assess Safety
 
-### 6. Confirm before executing
-**CRITICAL**: Before running any GAM command that:
-- Modifies or deletes resources
-- Affects multiple users/groups
-- Changes permissions or settings
-- Performs bulk operations
+**Analyze every command before execution:**
+- Assess risk level: LOW (read-only), MEDIUM (individual changes), HIGH (bulk changes), CRITICAL (deletions/suspensions)
+- Validate CSV files using Read tool when bulk operations are involved
+- Generate preview commands when available (e.g., `gam print` before modifying)
+- Check command syntax against documentation
 
-**Always**:
-1. Show the exact command(s) you plan to run
-2. Explain what the command will do
-3. Ask for explicit user confirmation
-4. Wait for user approval before executing
+**Risk Assessment Guidelines:**
+- CRITICAL: delete operations, bulk suspensions (>10), wipe commands
+- HIGH: bulk updates (>10), permission changes (bulk), password resets (bulk)
+- MEDIUM: individual user/group updates, OU moves, alias changes
+- LOW: print/info/show commands, read-only reports
 
-For read-only operations (print, info, show commands), you may execute without confirmation unless the user requests otherwise.
+### 5. Confirm Before Executing
 
-### 7. Execute and report results
-- Run the GAM command using bash
-- Capture and parse the output
-- Report success/failure clearly
-- If errors occur, consult documentation and suggest fixes
-- For CSV output, offer to analyze or visualize results
+**Always confirm before:**
+- Modifying or deleting resources
+- Operations affecting multiple users/groups (>5)
+- Changing permissions or security settings
+- Performing bulk operations from CSV files
+- Any CRITICAL or HIGH risk operations
+
+**Confirmation process:**
+1. Show the exact command(s) to be executed
+2. Explain what the command will do and estimated impact
+3. Highlight any risks or irreversible actions
+4. Request explicit user approval
+5. Wait for user confirmation before proceeding
+
+**Read-only operations** (print, info, show) may execute without confirmation unless specifically requested by the user.
+
+### 6. Execute and Report Results
+- Run GAM commands using Bash tool
+- Capture and parse command output
+- Report success/failure clearly with relevant details
+- If errors occur, consult troubleshooting.md and suggest fixes
+- For CSV output, offer to analyze or summarize results
+- Generate follow-up reports or validation checks as needed
+
+## Safety Rules
+
+**Core Safety Principles:**
+1. **Preview before modifying** - Use `gam print` or `gam info` to preview impact
+2. **Test with small samples** - For bulk operations, test with 1-2 entities first
+3. **Backup current state** - Export data before major changes
+4. **Validate CSV files** - Read and verify CSV data before using in commands
+5. **Batch size for large operations** - Use `config batch_size` to manage API quotas
+6. **No "all users" modifications** - Use specific selections (OU, CSV, query)
+
+**For detailed safety procedures, pre-flight checklists, and rollback strategies**, reference `references/safety_checklist.md`.
+
+## Progressive Disclosure Architecture
+
+This skill uses a two-tier documentation system optimized for efficient context usage:
+
+**Tier 1: references/** - Quick reference (7 files, ~66KB total)
+- Loaded first for common operations
+- Curated content covering 80% of typical use cases
+- Fast access for standard workflows
+
+**Tier 2: wiki/** - Complete documentation (165 files, ~4MB)
+- Loaded progressively only when specific topics are needed
+- Full GAM wiki bundled for offline access
+- Claude determines relevance and loads files contextually
+
+This architecture ensures comprehensive documentation without context bloat.
 
 ## Inputs
 
-### Required
-- User's goal or task description (e.g., "add users to group", "list all users in OU")
-- `references/` folder with curated GAM quick reference (included in skill)
-- `wiki/` folder with complete GAM documentation (165 pages, bundled in skill)
+**Required:**
+- User's task description or goal
+- Access to `references/` folder (bundled in skill)
+- Access to `wiki/` folder (bundled in skill)
 
-### Optional
+**Optional:**
 - CSV or Excel files for bulk operations
-- Specific email addresses, group names, or resource identifiers
-- Filter criteria (domains, queries, patterns)
+- Specific identifiers (emails, group names, file IDs)
+- Filter criteria (domains, queries, date ranges)
 - Output format preferences
 
 ## Outputs
 
-### Command outputs
-- GAM command syntax constructed and executed
-- Terminal output from GAM commands
-- Success/failure status
+**Commands:**
+- Properly formatted GAM commands
+- Terminal output from command execution
+- Success/failure status with details
 
-### Data outputs
-- CSV files generated from GAM output
-- Processed spreadsheets with analysis or transformations
-- Summary reports of operations performed
+**Data:**
+- CSV exports from GAM operations
+- Summary reports and analysis
+- Error logs and troubleshooting guidance
 
 ## Constraints
 
-- **GAM must be pre-installed**: Assumes `gam` command is available in PATH
-- **Network access required**: GAM operations require internet connectivity to Google APIs
-- **Authentication required**: Assumes GAM is already authenticated (oauth2.txt exists)
-- **Destructive operations**: Always confirm before modifying/deleting resources
-- **Documentation access**: Complete documentation (references/ + wiki/) bundled for offline access
+- **GAM7 must be pre-installed** - Assumes `gam` command is in PATH
+- **Authentication required** - Assumes GAM OAuth is configured (oauth2.txt exists)
+- **Network access required** - GAM operations require internet connectivity to Google APIs
+- **Admin privileges needed** - GAM requires appropriate Google Workspace admin permissions
+- **Destructive operations are irreversible** - Always confirm and backup before deletions
 
-## Error handling
+## Error Handling Strategy
 
-### Common errors and solutions
+When errors occur:
+1. **Capture the exact error message** from GAM output
+2. **Identify the error category**: authentication, syntax, permissions, API quota, or resource not found
+3. **Consult** `references/troubleshooting.md` for common error solutions
+4. **Suggest corrective action** based on error type
+5. **Offer to retry** with corrected command or parameters
 
-1. **Command not found: gam**
-   - Verify GAM installation: `which gam` or `gam version`
-   - Check PATH configuration
-   - Ask user for GAM installation location
+**Common error categories:**
+- **Command not found** → Verify GAM installation and PATH
+- **Authentication errors** → Check oauth2.txt, suggest re-authorization
+- **Syntax errors** → Re-read relevant documentation, verify command structure
+- **Permission errors** → Verify API scopes and admin privileges
+- **API quota exceeded** → Suggest batch_size parameter or retry timing
 
-2. **Authentication errors**
-   - Check if oauth2.txt exists: `ls ~/.gam/oauth2.txt` or similar
-   - Suggest running: `gam oauth create`
-   - Verify service account authorization
+For detailed troubleshooting procedures and solutions, reference `references/troubleshooting.md`.
 
-3. **Syntax errors**
-   - Re-read relevant GAM wiki documentation
-   - Check for typos in entity names or options
-   - Verify quote handling for names with spaces
+## Additional Resources
 
-4. **Permission errors**
-   - Verify GAM has necessary API scopes
-   - Check admin privileges for the operation
-   - Suggest re-authorizing with required scopes
+For detailed examples of real-world GAM workflows and use cases, reference `references/examples.md`.
 
-5. **API quota exceeded**
-   - Suggest batch_size parameter to throttle requests
-   - Wait and retry
-   - Use `gam info user` to check API quotas
+For complete command syntax patterns and detailed command options, reference `references/command_syntax.md` and `references/common_patterns.md`.
 
-**Recovery strategy**: For any failure:
-1. Show the exact error message
-2. Identify the likely cause based on error
-3. Consult relevant documentation section
-4. Suggest corrective action
-5. Offer to retry with corrected command
-
-## Examples
-
-### Example 1: List all users in an organizational unit
-**User request**: "Show me all users in the /Marketing/Sales OU"
-
-**Process**:
-1. Read `Collections-of-Users.md` and `Organizational-Units.md`
-2. Construct command: `gam print users ou "/Marketing/Sales"`
-3. Execute (read-only, no confirmation needed)
-4. Parse and present results
-
-### Example 2: Add multiple users to a group from CSV
-**User request**: "Add the users in users.csv to the marketing@example.com group"
-
-**Process**:
-1. Read `Groups-Membership.md` and `CSV-Input-Filtering.md`
-2. Use Read tool to preview users.csv and validate it has an Email column
-3. Construct command: `gam update group marketing@example.com add members csvfile users.csv:Email`
-4. **Show command and ask for confirmation**: "This will add N users to marketing@example.com. Proceed?"
-5. Wait for approval
-6. Execute and report results
-
-### Example 3: Create a new group with specific settings
-**User request**: "Create a new group called team@example.com that only members can post to"
-
-**Process**:
-1. Read `Groups.md` for group creation and settings
-2. Construct command:
-   ```
-   gam create group team@example.com name "Team Group" whoCanPostMessage ALL_MEMBERS_CAN_POST whoCanJoin CAN_REQUEST_TO_JOIN
-   ```
-3. **Show command and ask for confirmation**: "This will create a new group with these settings: ..."
-4. Execute after approval
-
-### Example 4: Export Drive file permissions to spreadsheet
-**User request**: "I need a report of who has access to files in the Shared Drive"
-
-**Process**:
-1. Read `Drive-Items.md` and `Shared-Drives.md`
-2. Construct command: `gam user admin@example.com print drivefileacls <SharedDriveID> > permissions.csv`
-3. Execute (read-only)
-4. Use Read tool to analyze the CSV and provide a summary of access patterns
-5. Present formatted results
-
-### Example 5: Bulk user suspension with safety check
-**User request**: "Suspend all users in the terminated.csv file"
-
-**Process**:
-1. Read `Collections-of-Users.md` for csvfile syntax
-2. Use Read tool to preview terminated.csv and count the users
-3. **CRITICAL CONFIRMATION**: "⚠️  This will SUSPEND {count} user accounts. This is a major operation. Please review the list and type 'CONFIRM' to proceed."
-4. Wait for explicit "CONFIRM" response
-5. Execute: `gam csvfile terminated.csv:email update user ~email suspended on`
-6. Report results and any errors
-
-## Reference
-
-### Documentation strategy
-
-**1. references/ folder (Quick Reference)**
-Curated quick-reference documentation for common operations:
-- `command_syntax.md` - Detailed command patterns
-- `common_patterns.md` - Frequently used commands
-- `quick_reference.md` - Top 50 commands
-- `safety_checklist.md` - Safety guidelines
-- `troubleshooting.md` - Common errors & solutions
-- `api_scopes.md` - Required API scopes
-
-Read these first - they cover 80% of common GAM operations.
-
-**2. wiki/ folder (Complete Documentation - Bundled)**
-The complete GAM wiki (165 pages, 4MB) is bundled with this skill for fast, offline access:
-```
-wiki/[PageName].md
-```
-
-Available pages cover all GAM functionality:
-- **User management**: Collections-of-Users.md, user commands
-- **Groups**: Groups.md, Groups-Membership.md, Cloud-Identity-Groups.md
-- **Drive**: Drive-Items.md, Drive-File-Selection.md, Shared-Drives.md
-- **Calendar**: Calendars.md, Calendars-Events.md, Calendars-Access.md
-- **Chrome/ChromeOS**: ChromeOS-Devices.md, Chrome-Policies.md
-- **Classroom**: Classroom-Courses.md, Classroom-Membership.md
-- **Organization**: Organizational-Units.md, Administrators.md
-- **Data formats**: CSV-Input-Filtering.md, CSV-Output-Filtering.md
-- **Advanced**: Bulk-Processing.md, Command-Data-From-Google-Docs-Sheets-Storage.md
-
-Claude uses progressive disclosure - files are only loaded when contextually relevant, so comprehensive documentation doesn't impact performance.
-
-### Safety guidelines
-1. **Confirm destructive operations**: Delete, suspend, modify permissions
-2. **Confirm bulk operations**: Anything affecting >5 resources
-3. **Validate input data**: Check CSV files before using in commands
-4. **Dry run when possible**: Use `gam print` to preview before executing
-5. **Backup critical data**: Suggest backing up before major changes
-6. **Test with small sample**: For bulk operations, test with 1-2 items first
-
-### Command patterns
-Common GAM command structure:
-```
-gam <entity-selection> <command> <resource> <options>
-
-Examples:
-gam user bob@example.com show info
-gam group sales@example.com add member alice@example.com
-gam print users query "orgUnitPath='/Sales'"
-gam all users delete messages query "in:trash older_than:30d"
-gam csvfile users.csv:email gam user ~email update ou "/Marketing"
-```
-
-## Notes
-
-- This skill requires GAM7 (not legacy GAM) for full feature support
-- Complete GAM wiki (165 pages) is bundled for offline access with progressive disclosure
-- Be especially careful with delete operations - they are often irreversible
-- Use `gam print` commands to preview data before modifying
-- CSV files can reference Google Sheets using gdoc: syntax
-- Regular expressions can be used for pattern matching in many commands
-- The skill can read any file in the wiki/ folder - reference specific docs as needed
+For API scope requirements when setting up GAM, reference `references/api_scopes.md`.
