@@ -80,7 +80,7 @@ cd gam-expert-claude-skill
 #### Install the Skill
 
 ```bash
-cp -r gam-expert ~/.claude/skills/
+cp -r skills/gam-expert ~/.claude/skills/
 ```
 
 #### Verify Installation
@@ -101,10 +101,10 @@ Claude will automatically invoke the GAM Expert skill when you ask about Google 
 
 You can use this skill in Claude.ai by uploading it as a ZIP file:
 
-1. Create a ZIP file of the `gam-expert` folder:
+1. Create a ZIP file of the skill:
    ```bash
    cd gam-expert-claude-skill
-   zip -r gam-expert.zip gam-expert/
+   zip -r gam-expert.zip skills/gam-expert/
    ```
 
 2. In Claude.ai, go to **Settings > Capabilities**
@@ -175,20 +175,19 @@ The skill includes multiple safety mechanisms:
 ## Skill Components
 
 ### Core Files
-- **SKILL.md** - Main skill instructions with comprehensive workflow
-- **EXAMPLES.md** - Detailed use case examples
-- **README.md** - Installation and usage guide
+- **SKILL.md** - Skill instructions with workflow and wiki navigation table
 
-### Reference Documentation (6 guides)
+### Reference Documentation (7 guides)
 - **quick_reference.md** - Common commands cheat sheet
 - **command_syntax.md** - GAM command structure
 - **common_patterns.md** - Frequently used patterns
 - **safety_checklist.md** - Pre-execution safety checks
 - **api_scopes.md** - OAuth scope requirements
 - **troubleshooting.md** - Common issues and solutions
+- **examples.md** - Real-world use case walkthroughs
 
-### Complete GAM Wiki (165 pages, bundled)
-- **wiki/** - Full GAM documentation for offline access (4MB)
+### Complete GAM Wiki (166 pages, bundled)
+- **wiki/** - Full GAM documentation for offline access (~3.3MB)
 - Loaded progressively only when needed
 - Covers all GAM functionality comprehensively
 
@@ -206,8 +205,7 @@ User describes goal → Skill breaks into steps → **Confirms plan** → Execut
 ## Documentation
 
 For detailed documentation, see:
-- [Skill README](gam-expert/README.md) - Complete usage guide
-- [Examples](gam-expert/EXAMPLES.md) - Detailed use cases
+- [Skill Definition](skills/gam-expert/SKILL.md) - Core workflow and wiki navigation
 - [Official GAM Wiki](https://github.com/GAM-team/GAM/wiki) - Complete GAM documentation
 
 ## Troubleshooting
