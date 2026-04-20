@@ -38,20 +38,17 @@ gam csvfile new_hires.csv gam info user ~email
 # 1. Transfer Drive ownership to manager
 gam user departed@example.com transfer drive manager@example.com
 
-# 2. Add email delegation to manager
-gam user departed@example.com delegate to manager@example.com
+# 2. Create Archive Google Group
+gam create group departed-archive
 
 # 3. Remove from all groups (except preserved ones)
 gam user departed@example.com delete groups
 
-# 4. Reset password and suspend
-gam update user departed@example.com password $(uuidgen) changepassword off suspended on
+# 4. Archive emails to Google Group
+gam user departed@example.com archive messages departed-archive@example.com doit
 
-# 5. Move to terminated OU
-gam update user departed@example.com ou "/Terminated"
-
-# 6. Add note to account
-gam update user departed@example.com notes "Departed: 2024-01-15. Manager: manager@example.com"
+# 5. Delete the user
+gam delete user departed@example.com
 ```
 
 ---
